@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Payment Confirmation Tool</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6f8;
+      padding: 30px;
+    }
+    .form-section {
+      max-width: 800px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    .box-section {
+      background-color: #e3f2fd;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 25px;
+    }
+    .section-title {
+      text-align: center;
+      font-size: 20px;
+      color: #ffffff;
+      background-color: #0077cc;
+      padding: 10px;
+      border-radius: 8px;
+      margin: -20px -20px 20px -20px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      text-transform: uppercase;
+    }
+    .form-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .form-group {
+      flex: 1;
+      min-width: 240px;
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    input, select {
+      padding: 4px 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+      height: 28px;
+    }
+    .button {
+      text-align: center;
+      margin-top: 20px;
+    }
+    button {
+      padding: 12px 25px;
+      font-size: 16px;
+      color: white;
+      background-color: #0077cc;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="form-section">
+  <div class="box-section">
+    <h2 class="section-title">Invoice Details</h2>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="invoiceDate">Invoice Date</label>
+        <input type="date" id="invoiceDate">
+      </div>
+      <div class="form-group">
+        <label for="invoiceNumber">Invoice Number</label>
+        <input type="text" id="invoiceNumber" placeholder="e.g. 001">
+      </div>
+    </div>
+  </div>
+
+  <div class="box-section">
+    <h2 class="section-title">Project Details</h2>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="siteLocation">Site Location</label>
+        <input type="text" id="siteLocation">
+      </div>
+      <div class="form-group">
+        <label for="eventDate">Event Date</label>
+        <input type="date" id="eventDate">
+      </div>
+      <div class="form-group">
+        <label for="clientName">Client Name</label>
+        <input type="text" id="clientName" placeholder="e.g. Rahul Sharma">
+      </div>
+    </div>
+  </div>
+
+  <div class="box-section">
+    <h2 class="section-title">Payment Details</h2>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="receivedDate">Payment Received Date</label>
+        <input type="date" id="receivedDate">
+      </div>
+      <div class="form-group">
+        <label for="paymentMethod">Payment Method</label>
+        <select id="paymentMethod">
+          <option value="">Select</option>
+          <option value="Bank Transfer">Bank Transfer</option>
+          <option value="UPI">UPI</option>
+          <option value="Cash">Cash</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="amount">Total Amount Received</label>
+        <input type="number" id="amount" placeholder="e.g. 4500">
+      </div>
+    </div>
+  </div>
+
+  <div class="button">
+    <button onclick="generateOutput()">Generate Confirmation</button>
+  </div>
+</div>
+
+<script>
+function convertToWords(num) {
+  const a = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"];
+  const b = ["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"];
+  const n = parseInt(num);
+  if (isNaN(n)) return "";
+  if (n === 0) return "Zero";
+  if (n < 20) return a[n];
+  if (n < 100) return b[Math.floor(n / 10)] + (n % 10 !== 0 ? " " + a[n % 10] : "");
+  if (n < 1000) return a[Math.floor(n / 100)] + " Hundred" + (n % 100 !== 0 ? " and " + convertToWords(n % 100) : "");
+  if (n < 100000) return convertToWords(Math.floor(n / 1000)) + " Thousand" + (n % 1000 !== 0 ? " " + convertToWords(n % 1000) : "");
+  if (n < 10000000) return convertToWords(Math.floor(n / 100000)) + " Lakh" + (n % 100000 !== 0 ? " " + convertToWords(n % 100000) : "");
+  return convertToWords(Math.floor(n / 10000000)) + " Crore" + (n % 10000000 !== 0 ? " " + convertToWords(n % 10000000) : "");
+}
+
+function formatDate(dateStr) {
+  const date = new Date(dateStr);
+  const options = { day: 'numeric', month: 'long', year: 'numeric' };
+  return date.toLocaleDateString('en-GB', options);
+}
+
+function generateOutput() {
+  const invoiceDate = document.getElementById('invoiceDate').value;
+  const invoiceNumber = document.getElementById('invoiceNumber').value;
+  const siteLocation = document.getElementById('siteLocation').value;
+  const eventDate = document.getElementById('eventDate').value;
+  const clientName = document.getElementById('clientName').value;
+  const receivedDate = document.getElementById('receivedDate').value;
+  const paymentMethod = document.getElementById('paymentMethod').value;
+  const amount = document.getElementById('amount').value;
+
+  if (!invoiceDate || !invoiceNumber || !siteLocation || !eventDate || !clientName || !receivedDate || !paymentMethod || !amount) {
+    alert('Please fill in all fields.');
+    return;
+  }
+
+  const dateObj = new Date(invoiceDate);
+  const month = dateObj.toLocaleString('default', { month: 'short' }).toUpperCase();
+  const year = dateObj.getFullYear();
+  const fullInvoiceNumber = `${month}${year}-${invoiceNumber}`;
+  const amountInWords = convertToWords(amount) + " Rupees Only";
+
+  const win = window.open('', '_blank');
+  win.document.write(`
+  <html><head><title>Confirmation</title></head><body style="font-family:Segoe UI,Tahoma,sans-serif;padding:30px;">
+    <div style="max-width:650px;margin:auto;margin-bottom:10px;padding:30px;border:2px solid #3f51b5;border-radius:12px;background:#f2546d;color:#fff;text-align:center;position:relative;overflow:hidden;">
+      <svg viewBox="0 0 500 120" preserveAspectRatio="none" style="position:absolute;top:0;left:0;width:100%;height:60px;z-index:1;">
+        <path d="M0,40 C100,110 400,-10 500,60 L500,0 L0,0 Z" style="stroke:none;fill:#fff;opacity:0.2;"></path>
+      </svg>
+      <svg viewBox="0 0 500 120" preserveAspectRatio="none" style="position:absolute;bottom:0;left:0;width:100%;height:60px;z-index:1;">
+        <path d="M0,60 C100,-10 400,110 500,60 L500,120 L0,120 Z" style="stroke:none;fill:#fff;opacity:0.2;"></path>
+      </svg>
+      <h1 style="margin:0 0 0px;font-size:24px;position:relative;z-index:2;">Thank you for your payment!</h1>
+      <div style="font-size:70px;margin-top:-10px;position:relative;z-index:2;">💸</div>
+    </div>
+
+    <div style="max-width:650px;margin:auto;border:2px solid #3f51b5;border-radius:12px;padding:30px;background:#fff;">
+      <div style="text-align:center;padding-bottom:15px;border-bottom:1px solid #ccc;">
+        <h2 style="margin:5px 0;color:#3f51b5;font-size:24px;">Payment Confirmation</h2>
+      </div>
+      <div style="text-align:right;font-size:14px;color:#555;margin-top:8px;line-height:1.5;">
+        <div><strong>Invoice Date :</strong> ${formatDate(invoiceDate)}</div>
+        <div><strong>Invoice No :</strong> ${fullInvoiceNumber}</div>
+      </div>
+      <div style="font-size:15px;color:#333;line-height:1.7;margin-top:18px;">
+        <p>Dear ${clientName},</p>
+        <p>I would like to confirm that I have received the payment for the event staffing services provided at <strong>${siteLocation}</strong> on <strong>${formatDate(eventDate)}</strong>.</p>
+        <p>Thank you for your prompt settlement. Please find the invoice attached for your records.</p>
+
+        <div style="background-color:#f0f0f0;padding:10px 15px;border:1px dashed #3f51b5;border-radius:6px;font-weight:bold;margin-top:15px;">
+          <div style="font-weight:normal;font-size:14px;line-height:1.6;margin-bottom:8px;">
+            <strong>Payment Received Date:</strong> ${formatDate(receivedDate)}<br>
+            <strong>Payment Method:</strong> ${paymentMethod}
+          </div>
+          <div style="text-align:left;font-size:16px;">
+            Total Amount Received:
+            <span style="font-size:22px;color:#3f51b5;"><strong>₹${parseFloat(amount).toLocaleString('en-IN')}</strong></span>
+            <span style="font-size:14px;color:#666;">(${amountInWords})</span>
+          </div>
+        </div>
+
+        <p style="margin-top:30px;border-top:1px solid #ddd;padding-top:10px;">
+          Warm regards,<br>
+          <span style="font-family: 'Dancing Script', cursive; font-size: 22px;"><strong>Sayantika Chetri</strong></span><br>
+          Sayantika Events & Staffing<br>
+          📞 6290435147<br>
+          ✉️ sayantikachetri@gmail.com
+        </p>
+      </div>
+
+      <div style="margin-top:40px;font-size:13px;text-align:center;color:#777;border-top:1px solid #ddd;padding-top:15px;">
+        &copy; 2025 Sayantika Events & Staffing<br>
+        <em>We Provide Professional Hospitality Staff for Events</em>
+      </div>
+
+      <div style="background-color:#fff8e1;border:2px dashed #f2546d;color:#333;font-size:17px;padding:12px 20px;text-align:center;border-radius:10px;font-weight:bold;box-shadow:0 4px 10px rgba(0,0,0,0.08);margin-top:25px;">
+        🙏 Thank you for trusting our services!
+      </div>
+    </div>
+  </body></html>
+  `);
+  win.document.close();
+}
+</script>
+
+</body>
+</html>
