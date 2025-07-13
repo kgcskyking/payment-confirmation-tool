@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Payment Confirmation</title>
+</head>
+<body style="font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;padding:30px;">
+  <div style="max-width:650px;margin:auto;margin-bottom:10px;padding:30px;border:2px solid #3f51b5;border-radius:12px;background:#f2546d;color:#ffffff;text-align:center;position:relative;overflow:hidden;">
+    <svg viewBox="0 0 500 120" preserveAspectRatio="none" style="position:absolute;top:0;left:0;width:100%;height:60px;z-index:1;">
+      <path d="M0,40 C100,110 400,-10 500,60 L500,0 L0,0 Z" style="stroke: none; fill: #ffffff; opacity: 0.2;"></path>
+    </svg>
+    <svg viewBox="0 0 500 120" preserveAspectRatio="none" style="position:absolute;bottom:0;left:0;width:100%;height:60px;z-index:1;">
+      <path d="M0,60 C100,-10 400,110 500,60 L500,120 L0,120 Z" style="stroke: none; fill: #ffffff; opacity: 0.2;"></path>
+    </svg>
+    <h1 style="margin:0;font-size:24px;position:relative;z-index:2;">Thank you for your payment!</h1>
+    <div style="font-size:70px;margin-top:-10px;position:relative;z-index:2;">💸</div>
+  </div>
+
+  <div style="max-width:650px;margin:auto;border:2px solid #3f51b5;border-radius:12px;padding:30px;background:#ffffff;">
+    <div style="text-align:center;padding-bottom:15px;border-bottom:1px solid #ccc;">
+      <h2 style="margin:5px 0;color:#3f51b5;font-size:24px;">Payment Confirmation</h2>
+    </div>
+    <div style="text-align:right;font-size:14px;color:#555;margin-top:8px;line-height:1.5;">
+      <div><strong>Invoice Date :</strong> <!--INVOICE_DATE--></div>
+      <div><strong>Invoice No :</strong> <!--INVOICE_NUMBER--></div>
+    </div>
+    <div style="font-size:15px;color:#333;line-height:1.7;margin-top:18px;">
+      <p>Dear <!--CLIENT_NAME-->,</p>
+      <p>I would like to confirm that I have received the payment for the event staffing services provided at <strong><!--SITE_LOCATION--></strong> on <strong><!--EVENT_DATE--></strong>.</p>
+      <p>Thank you for your prompt settlement. Please find the invoice attached for your records.</p>
+
+      <div style="background-color:#f0f0f0;padding:10px 15px;border:1px dashed #3f51b5;border-radius:6px;font-weight:bold;margin-top:15px;">
+        <div style="font-weight:normal;font-size:14px;line-height:1.6;margin-bottom:8px;">
+          <strong>Payment Received Date:</strong> <!--RECEIVED_DATE--><br>
+          <strong>Payment Method:</strong> <!--PAYMENT_METHOD-->
+        </div>
+        <div style="text-align:left;font-size:16px;">
+          Total Amount Received:
+          <span style="font-size:22px;color:#3f51b5;"><strong><!--AMOUNT_FORMATTED--></strong></span>
+          <span style="font-size:14px;color:#666;">(<!--AMOUNT_IN_WORDS-->)</span>
+        </div>
+      </div>
+
+      <p style="margin-top:30px;border-top:1px solid #ddd;padding-top:10px;">
+        Warm regards,<br>
+        <strong>Sayantika Chetri</strong><br>
+        Sayantika Events & Staffing<br>
+        📞 6290435147<br>
+        ✉️ sayantikachetri@gmail.com
+      </p>
+    </div>
+
+    <div style="margin-top:40px;font-size:13px;text-align:center;color:#777;border-top:1px solid #ddd;padding-top:15px;">
+      &copy; 2025 Sayantika Events & Staffing | Designed with care 💙<br>
+      <em>Professional Manpower Solutions for Events</em>
+    </div>
+
+    <div style="background-color:#fff8e1;border:2px dashed #f2546d;color:#333;font-size:17px;padding:12px 20px;text-align:center;border-radius:10px;font-weight:bold;box-shadow:0 4px 10px rgba(0,0,0,0.08);margin-top:25px;">
+      🙏 Thank you for trusting our services!
+    </div>
+  </div>
+</body>
+</html>
